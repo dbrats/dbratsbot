@@ -15,6 +15,6 @@ It can also recite the Fibonacci sequence up to a number specified by the user. 
 
 # Known issues!
 The bot will only do factorial for numbers less than 100.
-If someone asks for the Fibonacci sequence with a length of 500 or so, it'll likely crash due to using an recursive function to calculate the numbers.
+If someone asks for the Fibonacci sequence with a length of 35 or so, it'll likely crash due to using an recursive function to calculate the numbers.
 
 Both of these issues would be fairly trivial to fix, but stability really isn't a priority for this bot at the moment.
