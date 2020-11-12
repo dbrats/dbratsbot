@@ -2,4 +2,4 @@ build:
     docker:
         web: Dockerfile 
 run:
-    web: ./run.sh 
+    web: docker run -d dbratsbot 
