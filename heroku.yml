@@ -1,0 +1,5 @@
+build:
+    docker:
+        web: docker build --tag dbratsbot:latest .
+run:
+    web: docker run -d dbratsbot
