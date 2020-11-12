@@ -4,7 +4,7 @@ import re
 from dotenv import load_dotenv
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('DISCORD_CLIENT_SECRET')
 GUILD = os.getenv('DISCORD_GUILD')
 ME = os.getenv('DISCORD_BOT_USERNAME')
 client = discord.Client()
