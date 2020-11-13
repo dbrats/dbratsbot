@@ -75,6 +75,7 @@ async def on_message(message):
                 print(f'{w} detected in message.')
                 fixed = message.content.replace(w, soundmap[w])
                 print(f'Fixed message would look like this:\n{fixed}')
+                break
 
 
         factorial = extractFactorial(message.content)
