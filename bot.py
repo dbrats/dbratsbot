@@ -1,6 +1,7 @@
 import discord
 import os
 import re
+import sys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,6 +21,10 @@ def setupSoundMap():
     soundmap['sky'] = 'shy'
     soundmap['sj'] = 'sh'
     soundmap['ky'] = 'sky'
+
+    for w in priolist:
+        if w not in soundmap:
+            sys.exit()
 
 def extractFactorial(text):
     regex = '((|[0-9])[0-9])!'
@@ -87,5 +92,8 @@ async def on_message(message):
 
             fibresult = str(fibnums).replace('[', '').replace(']', '')
             await message.channel.send(f'Fibonacci: {fibresult}')
+
+
+setupSoundMap()
 
 client.run(TOKEN)
