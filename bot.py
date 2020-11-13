@@ -9,6 +9,18 @@ GUILD = os.getenv('DISCORD_GUILD')
 ME = os.getenv('DISCORD_BOT_USERNAME')
 client = discord.Client()
 
+priolist = {'skj', 'sky', 'ski', 'kj', 'ky', 'ki', 'sj'}
+soundmap = dict()
+
+def setupSoundMap():
+    soundmap['kj'] = 'sh'
+    soundmap['ki'] = 'sh'
+    soundmap['ski'] = 'sh'
+    soundmap['skj'] = 'sh'
+    soundmap['sky'] = 'shy'
+    soundmap['sj'] = 'sh'
+    soundmap['ky'] = 'sky'
+
 def extractFactorial(text):
     regex = '((|[0-9])[0-9])!'
     return re.findall(regex, text)
@@ -52,6 +64,13 @@ async def on_message(message):
         res = await message.add_reaction('❤️')
         if res:
             print(f'Reaction was added to the message.')
+
+        for w in priolist:
+            if w in message.content:
+                print(f'{w} detected in message.')
+                fixed = message.content.replace(w, soundmap[w])
+                print(f'Fixed message would look like this:\n{fixed}')
+
 
         factorial = extractFactorial(message.content)
         if len(factorial) > 0:
