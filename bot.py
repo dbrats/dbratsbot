@@ -71,7 +71,8 @@ async def on_message(message):
             print(f'Reaction was added to the message.')
 
         if message.author = 'dbrats#8888':
-            await message.add_reaction(':liverpool:')
+            lpool = get(bot.get_all_emojis(), name='liverpool')
+            await message.add_reaction(lpool)
 
         for w in priolist:
             if w in message.content:
