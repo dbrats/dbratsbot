@@ -70,6 +70,9 @@ async def on_message(message):
         if res:
             print(f'Reaction was added to the message.')
 
+        if message.author = 'dbrats#8888':
+            await message.add_reaction(':liverpool:')
+
         for w in priolist:
             if w in message.content:
                 print(f'{w} detected in message.')
