@@ -45,12 +45,13 @@ chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r'
 def saveName(name, url):
     cur = dbconn.cursor()
     cur.execute('INSERT INTO names(name, url) VALUES (%s, %s)', (name, url))
+    dbconn.commit()
     cur.close()
 
 def setLastChecked(a, b, c, d, e):
     cur = dbconn.cursor()
-    cur.execute('UPDATE last_checked SET a=%s, b=%s, c=%s, d=%s, e=%s WHERE id = 1',
-        (a, b, c, d, e))
+    cur.execute('UPDATE last_checked SET a=%s, b=%s, c=%s, d=%s, e=%s WHERE id = 1', (a, b, c, d, e))
+    dbconn.commit()
     cur.close()
 
 def getLastChecked():
