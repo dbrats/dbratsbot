@@ -26,18 +26,18 @@ chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r'
 
 count = 0
 #adPHN
-for a in chars:
-    for b in chars[3:]:
-        for c in chars[41:]:
-            for d in chars[33:]:
-                for e in chars[39:]:
-                    count = count + 1
-                    if count % 100 == 0:
-                        print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
-                    quit = tryWebsite(a, b, c, d, e)
-                    if quit:
-                        print (a + b + c + d + e)
-                        exit()
+#for a in chars:
+ #   for b in chars[3:]:
+  #      for c in chars[41:]:
+   #         for d in chars[33:]:
+    #            for e in chars[39:]:
+     #               count = count + 1
+      #              if count % 100 == 0:
+       #                 print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
+        #            quit = tryWebsite(a, b, c, d, e)
+         #           if quit:
+          #              print (a + b + c + d + e)
+           #             exit()
 
 print (count)
                     
