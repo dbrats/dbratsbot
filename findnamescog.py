@@ -57,7 +57,9 @@ def setLastChecked(a, b, c, d, e):
 def getLastChecked():
     cur = dbconn.cursor()
     cur.execute('SELECT a, b, c, d, e FROM last_checked WHERE id = 1')
-    return cur.fetchone()
+    lastChecked = cur.fetchone()
+    cur.close()
+    return lastChecked
 
 def tryWebsite(a, b, c, d, e):
     url = 'https://jul.dnb.no/v/' + a + b + c + d + e + '/'
