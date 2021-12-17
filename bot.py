@@ -1,45 +1,40 @@
-import requests
+import discord
+from discord.ext import tasks
+import os
+from dotenv import load_dotenv
+from findnamescog import checkNextBatch
 
-def tryWebsite(a, b, c, d, e):
-    url = 'https://jul.dnb.no/v/' + a + b + c + d + e + '/'
-    
-    response = requests.get(url)
-    code = response.status_code
-    if code == 200:
-        #<meta property="og:image" content="https://video.storm121.com/dnb-solvguttene-2021/result/thumbnails/thumb-Vegard.mov.jpg" />
-        content = response.content
+load_dotenv()
+TOKEN = os.getenv('DISCORD_CLIENT_SECRET')
+GUILD = os.getenv('DISCORD_GUILD')
+ME = os.getenv('DISCORD_BOT_USERNAME')
+client = discord.Client()
 
-        firstPart = 'https://video.storm121.com/dnb-solvguttene-2021/result/thumbnails/thumb-'
-        secondPart = '.mov.jpg\" /'
+@client.event
+async def on_ready():
+    print(f'{client.user} connected to Discord!\n')
+    checkNextBatch.start(client)
 
-        strCont = str(content)
-        start =strCont.find(firstPart) + len(firstPart)
-        end =  strCont.find(secondPart)
-        name = strCont[start:end]
+    print(
+        f'{client.user} is connected to the following server:')
+    for g in client.guilds:
+        print(
+            f'{g.name}(id: {g.id})\n'
+        )
 
-        f = open("names.txt", "a")
-        f.write(name + ' : ' + url + '\n')
-        f.close()
-    return False
+    guild = client.guilds[0]
+    channels = '\n - '.join([channel.name for channel in guild.channels])
+    print(f'Server Channels:\n - {channels}')
+    members = '\n - '.join([member.name for member in guild.members])
+    print(f'Server Members:\n - {members}')
 
-chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+@client.event
+async def on_message(message):
+    if str(message.channel) == 'dbratssandbox' and str(message.author) != ME:
+        print(f'{message.author} sent a message on {message.channel}: {message.content}\n')
+        res = await message.add_reaction('❤️')
+        if res:
+            print(f'Reaction was added to the message.')
 
-count = 0
-#adPHN
-#for a in chars:
- #   for b in chars[3:]:
-  #      for c in chars[41:]:
-   #         for d in chars[33:]:
-    #            for e in chars[39:]:
-     #               count = count + 1
-      #              if count % 100 == 0:
-       #                 print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
-        #            quit = tryWebsite(a, b, c, d, e)
-         #           if quit:
-          #              print (a + b + c + d + e)
-           #             exit()
-
-print (count)
-                    
-print ('Finished.')
-exit()
+if __name__ == '__main__':
+    client.run(TOKEN)
