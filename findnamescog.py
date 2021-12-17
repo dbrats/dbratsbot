@@ -40,7 +40,7 @@ friendYoutubeMap = {
     "Jakob" : "https://www.youtube.com/watch?v=EBqCSseQXsI"
 }
 
-
+totalCount = 0
 chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
 def saveName(name, url):
@@ -92,16 +92,18 @@ def checkName(client, name, url):
 async def checkNextBatch(client):
     abcde = getLastChecked()
 
+    print ("Checking: " + str(abcde))
     count = 0
     #adPHN
     for a in chars[chars.index(abcde[0]):]:
-       for b in chars[chars.index(abcde[1]):]:
-          for c in chars[chars.index(abcde[2]):]:
-             for d in chars[chars.index(abcde[3]):]:
+        for b in chars[chars.index(abcde[1]):]:
+            for c in chars[chars.index(abcde[2]):]:
+                for d in chars[chars.index(abcde[3]):]:
                     for e in chars[chars.index(abcde[4]):]:
-                       tryWebsite(a, b, c, d, e)
-                       count = count + 1
-                       if count % 100 == 0:
-                           setLastChecked(a, b, c, d, e)
-                           print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
-                           return           
+                        tryWebsite(a, b, c, d, e)
+                        count = count + 1
+                        if count % 100 == 0:
+                            setLastChecked(a, b, c, d, e)
+                            totalCount = totalCount + count
+                            print ('Count: ' + str(count) + ' : ' + a + b + c + d + e + " : Tot: " + totalCount)
+                            return           
