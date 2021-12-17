@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 from findnamescog import checkNextBatch
 
+print('Loading...')
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_CLIENT_SECRET')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -36,4 +38,6 @@ async def on_message(message):
         if res:
             print(f'Reaction was added to the message.')
 
+
+print('Starting...')
 client.run(TOKEN)
