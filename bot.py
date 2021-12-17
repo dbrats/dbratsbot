@@ -36,5 +36,4 @@ async def on_message(message):
         if res:
             print(f'Reaction was added to the message.')
 
-if __name__ == '__main__':
-    client.run(TOKEN)
+client.run(TOKEN)
