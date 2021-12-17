@@ -50,7 +50,7 @@ def saveName(name, url):
 
 def setLastChecked(a, b, c, d, e):
     cur = dbconn.cursor()
-    cur.execute('UPDATE last_checked SET a=%s, b=%s, c=%s, d=%s, e=%s) WHERE id = 1',
+    cur.execute('UPDATE last_checked SET a=%s, b=%s, c=%s, d=%s, e=%s WHERE id = 1',
         (a, b, c, d, e))
     cur.close()
 
