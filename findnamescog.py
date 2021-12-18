@@ -79,7 +79,7 @@ async def tryWebsite(a, b, c, d, e, client):
         end =  strCont.find(secondPart)
         name = strCont[start:end]
         saveName(name, url)
-        checkName(client, name, url)
+        await checkName(client, name, url)
 
 async def send_message(client, message):
     print('Sending message: ' + message)
