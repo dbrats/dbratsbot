@@ -1,5 +1,6 @@
 import requests
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import os
 from dotenv import load_dotenv
 from discord.ext import tasks
@@ -15,7 +16,8 @@ dbconn = psycopg2.connect(
     port=5432,
     database=DATABASE,
     user=USER,
-    password=PASSWORD
+    password=PASSWORD,
+    cursor_factory=RealDictCursor
 )
 
 friendNames = ["Theodor", "Thomas", "Marius", "Jørgen", "J%C3%B8rgen", "Ariel", "Jakob"]
@@ -57,13 +59,13 @@ def setLastChecked(a, b, c, d, e):
 def getLastChecked():
     cur = dbconn.cursor()
     cur.execute('SELECT a, b, c, d, e FROM last_checked WHERE id = 1')
-    lastChecked = cur.fetchone()
+    result = cur.fetchone()
+    lastChecked = (result['a'], result['b'], result['c'], result['d'], result['e'])
     cur.close()
     return lastChecked
 
 def tryWebsite(a, b, c, d, e):
     url = 'https://jul.dnb.no/v/' + a + b + c + d + e + '/'
-    
     response = requests.get(url)
     code = response.status_code
     if code == 200:
@@ -84,26 +86,42 @@ async def send_message(client, message):
     print ('Channel: ' + channel.name)
     await channel.send(message)
 
-def checkName(client, name, url): 
+async def checkName(client, name, url):
     if name in friendNames:
         message = "God jul, " + friendNamesMap[name] + "!\n" + friendYoutubeMap[name] + "\n" + url
-        print(message)
-        #await send_message(client, message)
+        await send_message(client, message)
+
+def doStartFromLogic(currentChar, lastChecked, lastCheckedIdx):
+    if chars.index(currentChar) < chars.index(lastChecked[lastCheckedIdx]):
+        return True
+    elif chars.index(currentChar) == chars.index(lastChecked[lastCheckedIdx]):
+        lastChecked[lastCheckedIdx] = chars[0]
+    return False
 
 @tasks.loop(seconds=17.0)
 async def checkNextBatch(client):
-    abcde = getLastChecked()
+    lastChecked = list(getLastChecked())
 
-    print ("Checking: " + str(abcde))
+    print ("Checking: " + str(lastChecked))
+
     count = 0
-    #adPHN
-    for a in chars[chars.index(abcde[0]):]:
-        for b in chars[chars.index(abcde[1]):]:
-            for c in chars[chars.index(abcde[2]):]:
-                for d in chars[chars.index(abcde[3]):]:
-                    for e in chars[chars.index(abcde[4]):]:
-                        tryWebsite(a, b, c, d, e)
+    for a in chars:
+        if doStartFromLogic(a, lastChecked, 0):
+            continue
+        for b in chars:
+            if doStartFromLogic(b, lastChecked, 1):
+                continue
+            for c in chars:
+                if doStartFromLogic(c, lastChecked, 2):
+                    continue
+                for d in chars:
+                    if doStartFromLogic(d, lastChecked, 3):
+                        continue
+                    for e in chars:
+                        if doStartFromLogic(e, lastChecked, 4):
+                            continue
                         count = count + 1
+                        tryWebsite(a, b, c, d, e)
                         if count % 100 == 0:
                             setLastChecked(a, b, c, d, e)
                             print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
