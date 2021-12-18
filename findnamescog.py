@@ -20,12 +20,11 @@ dbconn = psycopg2.connect(
     cursor_factory=RealDictCursor
 )
 
-friendNames = ["Theodor", "Thomas", "Marius", "Jørgen", "J%C3%B8rgen", "Ariel"]
+friendNames = ["Theodor", "Thomas", "Jørgen", "J%C3%B8rgen", "Ariel"]
 
 friendNamesMap = {
     "Theodor" : "<@120114285845282817>",
     "Thomas" : "<@581885571396272173>",
-    "Marius" : "<@604284074906877962>",
     "Jørgen" : "<@552440549265637378>",
     "J%C3%B8rgen" : "<@552440549265637378>",
     "Ariel" : "<@216119259003092995>"
@@ -34,7 +33,6 @@ friendNamesMap = {
 friendYoutubeMap = {
     "Theodor" : "https://www.youtube.com/watch?v=qzEoBrr9gRA",
     "Thomas" : "https://www.youtube.com/watch?v=hSVFRyEYSLw",
-    "Marius" : "https://www.youtube.com/watch?v=ehSRzM2DN2k",
     "Jørgen" : "https://www.youtube.com/watch?v=gxEPV4kolz0",
     "J%C3%B8rgen" : "https://www.youtube.com/watch?v=gxEPV4kolz0",
     "Ariel" : "https://www.youtube.com/watch?v=rBpaUICxEhk"
