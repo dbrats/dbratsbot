@@ -64,7 +64,7 @@ def getLastChecked():
     cur.close()
     return lastChecked
 
-def tryWebsite(a, b, c, d, e, client):
+async def tryWebsite(a, b, c, d, e, client):
     url = 'https://jul.dnb.no/v/' + a + b + c + d + e + '/'
     response = requests.get(url)
     code = response.status_code
@@ -88,6 +88,7 @@ async def send_message(client, message):
     await channel.send(message)
 
 async def checkName(client, name, url):
+    print("Checking name: " + name)
     if name in friendNames:
         message = "God jul, " + friendNamesMap[name] + "!\n" + friendYoutubeMap[name] + "\n" + url
         await send_message(client, message)
