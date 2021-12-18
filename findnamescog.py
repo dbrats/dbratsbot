@@ -123,7 +123,7 @@ async def checkNextBatch(client):
                         if doStartFromLogic(e, lastChecked, 4):
                             continue
                         count = count + 1
-                        tryWebsite(a, b, c, d, e, client)
+                        await tryWebsite(a, b, c, d, e, client)
                         if count % 100 == 0:
                             setLastChecked(a, b, c, d, e)
                             print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
