@@ -64,7 +64,7 @@ def getLastChecked():
     cur.close()
     return lastChecked
 
-def tryWebsite(a, b, c, d, e):
+def tryWebsite(a, b, c, d, e, client):
     url = 'https://jul.dnb.no/v/' + a + b + c + d + e + '/'
     response = requests.get(url)
     code = response.status_code
@@ -79,6 +79,7 @@ def tryWebsite(a, b, c, d, e):
         end =  strCont.find(secondPart)
         name = strCont[start:end]
         saveName(name, url)
+        checkName(client, name, url)
 
 async def send_message(client, message):
     print('Sending message: ' + message)
@@ -121,7 +122,7 @@ async def checkNextBatch(client):
                         if doStartFromLogic(e, lastChecked, 4):
                             continue
                         count = count + 1
-                        tryWebsite(a, b, c, d, e)
+                        tryWebsite(a, b, c, d, e, client)
                         if count % 100 == 0:
                             setLastChecked(a, b, c, d, e)
                             print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
