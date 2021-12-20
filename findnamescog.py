@@ -4,7 +4,6 @@ from psycopg2.extras import RealDictCursor
 import os
 from dotenv import load_dotenv
 from discord.ext import tasks
-import datetime
 
 load_dotenv()
 HOST = os.getenv('PG_HOST')
@@ -92,8 +91,8 @@ def doStartFromLogic(currentChar, lastChecked, lastCheckedIdx):
 @tasks.loop(seconds=17.0)
 async def checkNextBatch(client):
     lastChecked = list(getLastChecked())
-    now = datetime.datetime.now()
-    print ("Checking: " + str(lastChecked) + " Time: " + str(now))
+
+    print ("Checking: " + str(lastChecked))
 
     count = 0
     for a in chars:
@@ -114,7 +113,6 @@ async def checkNextBatch(client):
                         count = count + 1
                         await tryWebsite(a, b, c, d, e, client)
                         if count % 100 == 0:
-                            now = datetime.datetime.now()
                             setLastChecked(a, b, c, d, e)
-                            print ('Count: ' + str(count) + ' : ' + a + b + c + d + e + ' Time: ' + now)
+                            print ('Count: ' + str(count) + ' : ' + a + b + c + d + e)
                             return
