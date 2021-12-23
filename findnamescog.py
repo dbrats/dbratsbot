@@ -88,7 +88,7 @@ def doStartFromLogic(currentChar, lastChecked, lastCheckedIdx):
         lastChecked[lastCheckedIdx] = chars[0]
     return False
 
-@tasks.loop(seconds=17.0)
+@tasks.loop(seconds=15.0)
 async def checkNextBatch(client):
     lastChecked = list(getLastChecked())
 
